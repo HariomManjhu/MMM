@@ -1,0 +1,13 @@
+.custom-yellow {
+  color: #ffc107; 
+}
+.clean-link {
+  text-decoration: none;     /* removes underline */
+  color: inherit;            /* uses parent text color */
+  cursor: pointer;           /* optional: feels like a button */
+  display: block;            /* makes the whole block clickable */
+}
+
+.clean-link:hover {
+  opacity: 0.9;              /* optional: subtle hover effect */
+}

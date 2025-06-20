@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("partials/header") %>
+
+  <body class="bg-light text-dark">
+    <!-- Navbar (optional if not in header) -->
+    <!-- You can remove this if header already includes nav -->
+
+    <!-- FAQ Section -->
+    <section class="container my-5">
+      <h2 class="text-center mb-4 fw-bold">Frequently Asked Questions</h2>
+      <div class="accordion" id="faqAccordion">
+
+        <!-- Q1 -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="faq1">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#answer1" aria-expanded="true">
+              How do I log my meals?
+            </button>
+          </h2>
+          <div id="answer1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              You can go to the "Log Meal" tab and enter your meal details including portion size. It will update your daily stats automatically.
+            </div>
+          </div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="faq2">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#answer2">
+              How is my BMI calculated?
+            </button>
+          </h2>
+          <div id="answer2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              BMI is calculated using your weight and height. The formula used is: weight (kg) / [height (m)]².
+            </div>
+          </div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="faq3">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#answer3">
+              Can I change my goal (e.g., from weight loss to muscle gain)?
+            </button>
+          </h2>
+          <div id="answer3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Yes, go to your physical info section and update your goal. The suggestions will adjust accordingly.
+            </div>
+          </div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="faq4">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#answer4">
+              Where is my data stored?
+            </button>
+          </h2>
+          <div id="answer4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              All your data is stored securely in your local system or in the database connected with your user account.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <%- include("partials/footer") %>
+  </body>
+</html>

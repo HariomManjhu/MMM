@@ -1,0 +1,19 @@
+# Node modules (always ignore)
+node_modules/
+
+# Environment variables (if you use dotenv later)
+.env
+
+# System files
+.DS_Store
+
+# Log files
+*.log
+npm-debug.log*
+
+# IDE folders (optional)
+.vscode/
+.idea/
+
+# macOS files
+*.DS_Store
