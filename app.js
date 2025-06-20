@@ -14,7 +14,6 @@ app.get('/', (req, res) => {
   res.render('index.ejs');
 });
 
-// 🔥 THIS LINE STARTS THE SERVER 🔥
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`✅ Server running at http://localhost:${PORT}`);
