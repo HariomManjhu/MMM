@@ -23,9 +23,17 @@
           <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search" />
         </form>
         <div class="text-end">
-          <button type="button" class="btn btn-outline-light me-2">Login</button>
-          <button type="button" class="btn btn-warning">Sign-up</button>
-        </div>
+  <% if (!session.user) { %>
+    <a href="/login" class="btn btn-outline-light me-2">Login</a>
+    <a href="/register" class="btn btn-warning">Sign-up</a>
+  <% } else { %>
+    <a href="/dashboard" class="btn btn-success me-2">Dashboard</a>
+    <a href="/logmeal" class="btn btn-outline-light me-2">Log Meal</a>
+    <a href="/logout" class="btn btn-danger">Logout</a>
+  <% } %>
+</div>
+
+
       </div>
     </div>
   </header>
