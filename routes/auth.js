@@ -1,4 +1,3 @@
-// routes/auth.js
 import express from "express";
 import bcrypt from "bcrypt";
 
@@ -25,16 +24,30 @@ router.post("/register", async (req, res) => {
   } = req.body;
 
   try {
-    // Check if email already exists
+    // Password constraints
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+
+    if (!passwordRegex.test(password)) {
+      return res.render("register", {
+        error: "Password must be at least 8 characters, include uppercase, lowercase, number, and special character.",
+        data: { first_name, last_name, age, gender, height, weight, goal, email }
+      });
+    }
+
+    // Check if user exists
     const [existingUser] = await req.db.execute(
       "SELECT * FROM users WHERE email = ?", [email]
     );
-
     if (existingUser.length > 0) {
-      return res.redirect("/login"); // User already registered
+      return res.render("register", {
+        error: "Email already registered. Please login.",
+        data: { first_name, last_name, age, gender, height, weight, goal }
+      });
     }
 
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    const bcrypt = await import('bcrypt');
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     await req.db.execute(
       `INSERT INTO users 
@@ -43,12 +56,13 @@ router.post("/register", async (req, res) => {
       [first_name, last_name, age, gender, height, weight, goal, email, hashedPassword]
     );
 
-    req.session.user = { email };
-    res.redirect("/dashboard"); // ✅ redirect fixed
-
-  } catch (err) {
-    console.error("Registration Error:", err);
-    res.status(500).send("Something went wrong during registration.");
+    return res.redirect("/login");
+  } catch (error) {
+    console.error(error);
+    res.render("register", {
+      error: "Something went wrong.",
+      data: { first_name, last_name, age, gender, height, weight, goal, email }
+    });
   }
 });
 
@@ -75,7 +89,7 @@ router.post("/login", async (req, res) => {
 
     if (isMatch) {
       req.session.user = { id: user.id, email: user.email };
-      res.redirect("/dashboard"); // ✅ fixed here
+      res.redirect("/dashboard"); //  fixed here
     } else {
       res.redirect("/login"); // Incorrect password
     }

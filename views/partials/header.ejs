@@ -60,14 +60,15 @@
 
       <!-- 2. Navigation Links -->
       <div class="col">
-        <ul class="nav mb-2 justify-content-center mb-md-0">
-          <li><a href="/" class="nav-link px-3 text-white">Home</a></li>
-          <li><a href="/dashboard" class="nav-link px-3 text-white">Nutrition Dashboard</a></li>
-          <li><a href="/logmeal" class="nav-link px-3 text-white">Log Meal</a></li>
-          <li><a href="/faq" class="nav-link px-3 text-white">FAQs</a></li>
-          <li><a href="/about" class="nav-link px-3 text-white">About</a></li>
-        </ul>
-      </div>
+       <ul class="nav mb-2 justify-content-center mb-md-0">
+  <li><a href="/" class="nav-link px-3 <%= currentPath === '/' ? 'bg-primary text-white rounded' : 'text-white' %>">Home</a></li>
+  <li><a href="/dashboard" class="nav-link px-3 <%= currentPath === '/dashboard' ? 'bg-primary text-white rounded' : 'text-white' %>">Nutrition Dashboard</a></li>
+  <li><a href="/logmeal" class="nav-link px-3 <%= currentPath === '/logmeal' ? 'bg-primary text-white rounded' : 'text-white' %>">Log Meal</a></li>
+  <li><a href="/faq" class="nav-link px-3 <%= currentPath === '/faq' ? 'bg-primary text-white rounded' : 'text-white' %>">FAQs</a></li>
+  <li><a href="/about" class="nav-link px-3 <%= currentPath === '/about' ? 'bg-primary text-white rounded' : 'text-white' %>">About</a></li>
+</ul>
+      </div> 
+
 
       <!-- 3. Search + Buttons -->
       <div class="col-auto d-flex align-items-center gap-2">

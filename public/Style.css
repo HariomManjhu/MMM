@@ -2,14 +2,14 @@
   color: #ffc107; 
 }
 .clean-link {
-  text-decoration: none;     /* removes underline */
-  color: inherit;            /* uses parent text color */
-  cursor: pointer;           /* optional: feels like a button */
-  display: block;            /* makes the whole block clickable */
+  text-decoration: none;     
+  color: inherit;           
+  cursor: pointer;          
+  display: block;            
 }
 
 .clean-link:hover {
-  opacity: 0.9;              /* optional: subtle hover effect */
+  opacity: 0.9;              
 }
 .highlight {
   color: limegreen;
@@ -27,5 +27,43 @@
   background-color: #1e1e2f;
   color: white;
 }
+.feature-card {
+  display: block;
+  padding: 20px;
+  border: 1px solid #eaeaea;
+  border-radius: 20px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background: #fff;
+  height: 100%;
+}
 
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
 
+.icon-box {
+  width: 60px;
+  height: 60px;
+  background-color: #f2f2f2;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+.nav-link.bg-primary {
+  font-weight: 600;
+  box-shadow: 0 0 5px rgba(13, 110, 253, 0.6);
+}
+.card {
+  border-radius: 12px;
+  transition: transform 0.2s ease-in-out;
+}
+.card:hover {
+  transform: scale(1.02);
+}
+.card-header {
+  border-top-left-radius: 12px !important;
+  border-top-right-radius: 12px !important;
+}

@@ -1,0 +1,36 @@
+<%- include('partials/header') %>
+
+<div class="container mt-4">
+  <h2 class="text-center mb-4 text-primary">📅 Weekly Summary</h2>
+
+  <% if (days.length === 0) { %>
+    <p class="text-center">No data available yet.</p>
+  <% } else { %>
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+          <tr>
+            <th>Date</th>
+            <th>Calories</th>
+            <th>Protein (g)</th>
+            <th>Carbs (g)</th>
+            <th>Fat (g)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% days.forEach(day => { %>
+            <tr>
+              <td><%= day.date %></td>
+              <td><%= day.calories || 0 %></td>
+              <td><%= day.protein || 0 %></td>
+              <td><%= day.carbs || 0 %></td>
+              <td><%= day.fat || 0 %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  <% } %>
+</div>
+
+<%- include('partials/footer') %>

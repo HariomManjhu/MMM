@@ -1,46 +1,54 @@
 <%- include('partials/header') %>
 
-<div class="container">
-  <h1>Log Your Meal</h1>
-
-  <form action="/log_meal" method="POST">
-    <div>
-      <label for="day">Select Day:</label>
-      <select name="day" id="day" required>
-        <option value="">--Select--</option>
-        <option>Sunday</option>
-        <option>Monday</option>
-        <option>Tuesday</option>
-        <option>Wednesday</option>
-        <option>Thursday</option>
-        <option>Friday</option>
-        <option>Saturday</option>
-      </select>
+<div class="container py-5">
+  <% if (!user) { %>
+    <div class="text-center">
+      <h3 class="mb-3">Please log in to log your meal</h3>
+      <a href="/login" class="btn btn-primary">Go to Login</a>
+      <p class="mt-3 text-muted">Logging meals helps you track your progress more effectively.</p>
     </div>
+  <% } else { %>
+  <% if (success) { %>
+  <div class="alert alert-success text-center">
+    ✅ Meal logged successfully!
+    <a href="/dashboard" class="btn btn-sm btn-outline-primary ms-2">Go to Dashboard</a>
+  </div>
+<% } %>
 
-    <div>
-      <label for="meal">Select Meal:</label>
-      <select name="meal" id="meal" required>
-        <option value="">--Select--</option>
-        <option>Breakfast</option>
-        <option>Lunch</option>
-        <option>Dinner</option>
-      </select>
-    </div>
+    <h1 class="mb-4">Log Your Meal</h1>
 
-    <div>
-      <label for="food">What did you eat?</label>
-      <input type="text" name="food" id="food" placeholder="e.g., 2 puris, 1 bowl rice" required />
-    </div>
+    <form action="/logmeal" method="POST" class="p-4 border rounded-3 bg-light">
 
-    <div>
-      <label for="quantity">Quantity / Serving Info:</label>
-      <input type="text" name="quantity" id="quantity" placeholder="e.g., 1.5 servings" required />
-    </div>
+      <div class="mb-3">
+        <label for="meal" class="form-label">Select Meal</label>
+        <select class="form-select" name="meal" id="meal" required>
+          <option value="">--Select--</option>
+          <option>Breakfast</option>
+          <option>Lunch</option>
+          <option>Dinner</option>
+        </select>
+      </div>
 
-    <button type="submit">Log Meal</button>
-  </form>
+      <div class="mb-3">
+  <label for="food" class="form-label">What did you eat?</label>
+  <select name="food" id="food" class="form-select" required>
+    <option value="">--Select--</option>
+    <option value="Poha">Poha</option>
+    <option value="Upma">Upma</option>
+    <option value="Rice">Rice</option>
+    <option value="Roti">Roti</option>
+  </select>
+</div>
 
+
+      <div class="mb-3">
+        <label for="quantity" class="form-label">Quantity / Serving Info</label>
+        <input type="text" name="quantity" id="quantity" class="form-control" required placeholder="e.g., 1.5 servings" />
+      </div>
+
+      <button type="submit" class="btn btn-success">Log Meal</button>
+    </form>
+  <% } %>
 </div>
 
 <%- include('partials/footer') %>
