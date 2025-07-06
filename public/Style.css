@@ -11,3 +11,21 @@
 .clean-link:hover {
   opacity: 0.9;              /* optional: subtle hover effect */
 }
+.highlight {
+  color: limegreen;
+  font-weight: bold;
+  font-size: 28px;
+}
+.x {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  height: 100vh !important;
+  padding: 20px !important;
+}
+.custom-modal-bg {
+  background-color: #1e1e2f;
+  color: white;
+}
+
+

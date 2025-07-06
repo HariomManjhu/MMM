@@ -1,0 +1,46 @@
+<%- include('partials/header') %>
+
+<div class="container">
+  <h1>Log Your Meal</h1>
+
+  <form action="/log_meal" method="POST">
+    <div>
+      <label for="day">Select Day:</label>
+      <select name="day" id="day" required>
+        <option value="">--Select--</option>
+        <option>Sunday</option>
+        <option>Monday</option>
+        <option>Tuesday</option>
+        <option>Wednesday</option>
+        <option>Thursday</option>
+        <option>Friday</option>
+        <option>Saturday</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="meal">Select Meal:</label>
+      <select name="meal" id="meal" required>
+        <option value="">--Select--</option>
+        <option>Breakfast</option>
+        <option>Lunch</option>
+        <option>Dinner</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="food">What did you eat?</label>
+      <input type="text" name="food" id="food" placeholder="e.g., 2 puris, 1 bowl rice" required />
+    </div>
+
+    <div>
+      <label for="quantity">Quantity / Serving Info:</label>
+      <input type="text" name="quantity" id="quantity" placeholder="e.g., 1.5 servings" required />
+    </div>
+
+    <button type="submit">Log Meal</button>
+  </form>
+
+</div>
+
+<%- include('partials/footer') %>

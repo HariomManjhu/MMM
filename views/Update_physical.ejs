@@ -1,0 +1,28 @@
+<%- include('partials/header') %>
+<div class="x">
+  <div class="w-100" style="max-width: 600px;">
+    <div class="p-4 border rounded shadow-sm bg-light">
+      <h3 class="text-center mb-4">Update Physical Information</h3>
+      <form action="/update-physical" method="POST">
+        <div class="mb-3">
+          <label for="height" class="form-label">Height (cm)</label>
+          <input type="number" class="form-control" name="height" min="1" required>
+        </div>
+        <div class="mb-3">
+          <label for="weight" class="form-label">Current Weight (kg)</label>
+<input type="number" class="form-control" name="weight" min="1" required>
+        </div>
+        <div class="mb-3">
+          <label for="activity" class="form-label">Activity Level</label>
+          <select class="form-select" name="activity" required>
+            <option value="none">No Activity</option>
+            <option value="gym_light">Gym (Light)</option>
+            <option value="gym_heavy">Gym (Heavy)</option>
+            <option value="sports">Sports</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-warning w-100">Update Info</button>
+      </form>
+    </div>
+  </div>
+</div>

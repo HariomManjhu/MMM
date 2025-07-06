@@ -25,22 +25,26 @@ router.post("/register", async (req, res) => {
   } = req.body;
 
   try {
-    const [existingUser] = await req.db.execute("SELECT * FROM users WHERE email = ?", [email]);
+    // Check if email already exists
+    const [existingUser] = await req.db.execute(
+      "SELECT * FROM users WHERE email = ?", [email]
+    );
+
     if (existingUser.length > 0) {
-      return res.redirect("/login");
+      return res.redirect("/login"); // User already registered
     }
 
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
     await req.db.execute(
       `INSERT INTO users 
-      (first_name, last_name, age, gender, height, weight, goal, email, password) 
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        (first_name, last_name, age, gender, height, weight, goal, email, password) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [first_name, last_name, age, gender, height, weight, goal, email, hashedPassword]
     );
 
     req.session.user = { email };
-    res.redirect("/index.ejs");
+    res.redirect("/dashboard"); // ✅ redirect fixed
 
   } catch (err) {
     console.error("Registration Error:", err);
@@ -58,18 +62,22 @@ router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const [rows] = await req.db.execute("SELECT * FROM users WHERE email = ?", [email]);
+    const [rows] = await req.db.execute(
+      "SELECT * FROM users WHERE email = ?", [email]
+    );
 
-    if (rows.length === 0) return res.redirect("/register");
+    if (rows.length === 0) {
+      return res.redirect("/register"); // No user found
+    }
 
     const user = rows[0];
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (isMatch) {
       req.session.user = { id: user.id, email: user.email };
-      res.redirect("/index");
+      res.redirect("/dashboard"); // ✅ fixed here
     } else {
-      res.redirect("/login");
+      res.redirect("/login"); // Incorrect password
     }
 
   } catch (err) {
