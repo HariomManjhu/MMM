@@ -1,69 +1,178 @@
-.custom-yellow {
-  color: #ffc107; 
-}
-.clean-link {
-  text-decoration: none;     
-  color: inherit;           
-  cursor: pointer;          
-  display: block;            
+/* ---
+Design System Overhaul
+--- */
+
+/* 1. FONT IMPORT */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+/* 2. CSS VARIABLES (Color Palette & Styles) */
+:root {
+  /* Health-focused Palette */
+  --primary-mint: #a8e6cf;
+  --primary-blue: #dcedff;
+  --accent-green: #43e97b;
+  --text-dark: #2c3e50;
+  --text-light: #f1f1f1;
+  --bg-light: #f9f9f9;
+  --bg-dark: #1f2937;
+  --card-light: #ffffff;
+  --card-dark: #2c3e50;
+  
+  /* Style Variables */
+  --border-radius: 18px;
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+  --shadow-hover: 0 12px 32px rgba(0, 0, 0, 0.1);
+  --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-.clean-link:hover {
-  opacity: 0.9;              
-}
-.highlight {
-  color: limegreen;
-  font-weight: bold;
-  font-size: 28px;
-}
-.x {
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-  height: 100vh !important;
-  padding: 20px !important;
-}
-.custom-modal-bg {
-  background-color: #1e1e2f;
-  color: white;
-}
-.feature-card {
-  display: block;
-  padding: 20px;
-  border: 1px solid #eaeaea;
-  border-radius: 20px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  background: #fff;
-  height: 100%;
+/* 3. BASE STYLES */
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+  line-height: 1.6;
 }
 
-.feature-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+body.dark-mode {
+  background-color: var(--bg-dark);
+  color: var(--text-light);
 }
 
-.icon-box {
-  width: 60px;
-  height: 60px;
-  background-color: #f2f2f2;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto;
+h1, h2, h3, h4, h5 {
+  font-weight: 700;
+  color: var(--text-dark);
 }
-.nav-link.bg-primary {
+
+body.dark-mode h1, body.dark-mode h2, body.dark-mode h3, body.dark-mode h4, body.dark-mode h5 {
+  color: var(--text-light);
+}
+
+a {
+  color: var(--accent-green);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+a:hover {
+  color: #36c268;
+}
+
+/* 4. COMPONENT STYLES */
+
+/* Cards & Sections */
+.card, .main-hero, .main-section, .about-card, .profile-card, .log-card, .dash-card {
+  background: var(--card-light);
+  color: var(--text-dark);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  border: none;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  transition: var(--transition);
+}
+
+.card:hover, .main-hero:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+body.dark-mode .card, body.dark-mode .main-hero, body.dark-mode .main-section, body.dark-mode .about-card, body.dark-mode .profile-card, body.dark-mode .log-card, body.dark-mode .dash-card {
+  background: var(--card-dark);
+  color: var(--text-light);
+}
+
+/* Buttons */
+.btn, .main-btn, .header-btn, .footer-btn, .log-btn, .dash-btn, .profile-btn, .about-btn {
+  background: linear-gradient(90deg, var(--primary-mint), var(--primary-blue));
+  color: var(--text-dark) !important;
+  border-radius: var(--border-radius);
   font-weight: 600;
-  box-shadow: 0 0 5px rgba(13, 110, 253, 0.6);
+  padding: 0.8rem 1.8rem;
+  border: none;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  cursor: pointer;
 }
-.card {
-  border-radius: 12px;
-  transition: transform 0.2s ease-in-out;
+
+.btn:hover, .main-btn:hover, .header-btn:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: var(--shadow-hover);
 }
-.card:hover {
-  transform: scale(1.02);
+
+/* Header */
+.navbar {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow);
 }
-.card-header {
-  border-top-left-radius: 12px !important;
-  border-top-right-radius: 12px !important;
+
+body.dark-mode .navbar {
+  background: rgba(31, 41, 55, 0.7);
+}
+
+.nav-link {
+  font-weight: 600;
+  color: var(--text-dark) !important;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  transition: var(--transition);
+}
+
+.nav-link:hover, .nav-link.active {
+  background-color: var(--primary-blue);
+  color: var(--text-dark) !important;
+}
+
+body.dark-mode .nav-link {
+  color: var(--text-light) !important;
+}
+
+body.dark-mode .nav-link:hover, body.dark-mode .nav-link.active {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* --- Dark Mode Component Fixes --- */
+
+/* General Text & Headings */
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode .display-4,
+body.dark-mode .lead {
+  color: var(--text-light) !important;
+}
+.faq-title {
+  color: var(--text-dark);
+}
+body.dark-mode .faq-title {
+  color: var(--text-light) !important;
+}
+body.dark-mode .text-muted {
+  color: #adb5bd !important;
+}
+
+/* Dark mode for Bootstrap Accordion */
+body.dark-mode .accordion-item {
+  background-color: var(--card-dark);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: var(--text-light);
+}
+body.dark-mode .accordion-body {
+    color: var(--text-light);
+}
+body.dark-mode .accordion-button {
+  background-color: var(--card-dark);
+  color: var(--text-light);
+}
+body.dark-mode .accordion-button:not(.collapsed) {
+  color: var(--text-light);
+  background-color: #4a5568;
+}
+body.dark-mode .accordion-button::after {
+  filter: brightness(0) invert(1);
+}
+
+/* 5. UTILITIES */
+.highlight {
+  color: var(--accent-green);
+  font-weight: bold;
 }

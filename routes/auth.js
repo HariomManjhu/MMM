@@ -20,7 +20,12 @@ router.post("/register", async (req, res) => {
     weight,
     goal,
     email,
-    password
+    password,
+    role,
+    mess_name,
+    mess_description,
+    mess_address,
+    contact_number
   } = req.body;
 
   try {
@@ -29,10 +34,7 @@ router.post("/register", async (req, res) => {
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
 
     if (!passwordRegex.test(password)) {
-      return res.render("register", {
-        error: "Password must be at least 8 characters, include uppercase, lowercase, number, and special character.",
-        data: { first_name, last_name, age, gender, height, weight, goal, email }
-      });
+      return res.redirect('/register?toast=Password+is+not+strong+enough&toastType=error');
     }
 
     // Check if user exists
@@ -40,29 +42,40 @@ router.post("/register", async (req, res) => {
       "SELECT * FROM users WHERE email = ?", [email]
     );
     if (existingUser.length > 0) {
-      return res.render("register", {
-        error: "Email already registered. Please login.",
-        data: { first_name, last_name, age, gender, height, weight, goal }
-      });
+      return res.redirect('/register?toast=Email+already+registered&toastType=error');
     }
 
     const bcrypt = await import('bcrypt');
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    await req.db.execute(
+    // Insert user
+    const [userResult] = await req.db.execute(
       `INSERT INTO users 
-        (first_name, last_name, age, gender, height, weight, goal, email, password) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      [first_name, last_name, age, gender, height, weight, goal, email, hashedPassword]
+        (first_name, last_name, age, gender, height, weight, goal, email, password, role) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [first_name, last_name, age, gender, height, weight, goal, email, hashedPassword, role]
     );
+    const userId = userResult.insertId;
 
-    return res.redirect("/login");
+    if (role === 'mess_operator') {
+      // Insert mess operator details
+      await req.db.execute(
+        `INSERT INTO mess_operator_details (user_id, mess_name, mess_description, mess_address, contact_number)
+         VALUES (?, ?, ?, ?, ?)`,
+        [userId, mess_name, mess_description, mess_address, contact_number]
+      );
+      // Create mess entry and link to this user
+      await req.db.execute(
+        `INSERT INTO mess (mess_name, description, owner_id)
+         VALUES (?, ?, ?)`,
+        [mess_name, mess_description, userId]
+      );
+    }
+
+    return res.redirect("/login?toast=Registration+successful!+Please+login.");
   } catch (error) {
     console.error(error);
-    res.render("register", {
-      error: "Something went wrong.",
-      data: { first_name, last_name, age, gender, height, weight, goal, email }
-    });
+    res.redirect('/register?toast=Something+went+wrong&toastType=error');
   }
 });
 
@@ -81,7 +94,7 @@ router.post("/login", async (req, res) => {
     );
 
     if (rows.length === 0) {
-      return res.redirect("/register"); // No user found
+      return res.redirect('/login?toast=No+account+found+with+that+email&toastType=error');
     }
 
     const user = rows[0];
@@ -89,14 +102,14 @@ router.post("/login", async (req, res) => {
 
     if (isMatch) {
       req.session.user = { id: user.id, email: user.email };
-      res.redirect("/dashboard"); //  fixed here
+      res.redirect("/dashboard");
     } else {
-      res.redirect("/login"); // Incorrect password
+      res.redirect('/login?toast=Incorrect+password&toastType=error');
     }
 
   } catch (err) {
     console.error("Login Error:", err);
-    res.status(500).send("Login failed. Try again.");
+    res.redirect('/login?toast=Login+failed,+please+try+again&toastType=error');
   }
 });
 

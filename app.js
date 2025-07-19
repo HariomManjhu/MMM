@@ -3,6 +3,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import mysql from 'mysql2/promise';
 import session from 'express-session';
+import MySQLStore from 'express-mysql-session';
 import dotenv from 'dotenv';
 
 import dashboardRoutes from './routes/dashboard.js';
@@ -17,18 +18,28 @@ const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+const dbOptions = {
+  host: process.env.DB_HOST || 'localhost',
+  user: process.env.DB_USER || 'root',
+  password: process.env.DB_PASS || '',
+  database: process.env.DB_NAME || 'tau'
+};
+
 // View engine & middleware setup
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 
+const sessionStore = new (MySQLStore(session))(dbOptions);
+
 // Session middleware
 app.use(session({
   secret: "TOP_SECRET",
   resave: false,
   saveUninitialized: false,
-  cookie: { maxAge: 1000 * 60 * 60 * 24 }
+  store: sessionStore,
+  cookie: { maxAge: 1000 * 60 * 60 * 24 * 7 } // 7 days
 }));
 
 // Locals for all templates
@@ -41,12 +52,7 @@ app.use((req, res, next) => {
 
 // MAIN FUNCTION (connect DB and load routers)
 async function main() {
-  const db = await mysql.createConnection({
-    host: process.env.DB_HOST || 'localhost',
-    user: process.env.DB_USER || 'root',
-    password: process.env.DB_PASS || '',
-    database: process.env.DB_NAME || 'myappdb'
-  });
+  const db = await mysql.createConnection(dbOptions);
 
   // Add database to every request
   app.use((req, res, next) => {

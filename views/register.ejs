@@ -1,47 +1,92 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Register</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="bg-light">
-  <div class="container mt-5 col-md-6">
-    <h2 class="mb-4">Create Your Account</h2>
-    <form action="/register" method="POST">
-      <div class="row">
-        <div class="col">
-          <input type="text" name="first_name" class="form-control mb-3" placeholder="First Name" required>
+<%- include('partials/header') %>
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+  <div class="col-lg-6">
+    <div class="card p-5">
+      <h2 class="text-center mb-4">Create Your Account</h2>
+      <% if (typeof error !== 'undefined' && error) { %>
+        <div class="alert alert-danger"><%= error %></div>
+      <% } %>
+      <form action="/register" method="POST">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label for="first_name" class="form-label">First Name</label>
+            <input type="text" name="first_name" id="first_name" class="form-control" required>
+          </div>
+          <div class="col-md-6">
+            <label for="last_name" class="form-label">Last Name</label>
+            <input type="text" name="last_name" id="last_name" class="form-control" required>
+          </div>
+          <div class="col-12">
+            <label for="role-select" class="form-label">Register as...</label>
+            <select name="role" class="form-select" id="role-select" required onchange="toggleRoleFields()">
+              <option value="student">Student</option>
+              <option value="mess_operator">Mess Operator</option>
+            </select>
+          </div>
         </div>
-        <div class="col">
-          <input type="text" name="last_name" class="form-control mb-3" placeholder="Last Name" required>
+
+        <div id="student-fields" class="row g-3 mt-2">
+          <div class="col-md-6"><input type="number" name="age" class="form-control" placeholder="Age"></div>
+          <div class="col-md-6">
+            <select name="gender" class="form-select">
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </div>
+          <div class="col-md-6"><input type="number" name="height" class="form-control" placeholder="Height (cm)"></div>
+          <div class="col-md-6"><input type="number" name="weight" class="form-control" placeholder="Weight (kg)"></div>
+          <div class="col-12">
+            <select name="goal" class="form-select">
+              <option value="maintain">Maintain Weight</option>
+              <option value="cut">Lose Weight (Cut)</option>
+              <option value="bulk">Gain Muscle (Bulk)</option>
+            </select>
+          </div>
         </div>
-      </div>
 
-      <input type="number" name="age" class="form-control mb-3" placeholder="Age" required>
-      
-      <select name="gender" class="form-select mb-3" required>
-        <option value="" disabled selected>Gender</option>
-        <option value="Male">Male</option>
-        <option value="Female">Female</option>
-        <option value="Other">Other</option>
-      </select>
+        <div id="mess-operator-fields" class="row g-3 mt-2" style="display:none;">
+          <div class="col-12"><input type="text" name="mess_name" class="form-control" placeholder="Mess Name"></div>
+          <div class="col-12"><input type="text" name="mess_address" class="form-control" placeholder="Mess Address"></div>
+          <div class="col-12"><input type="text" name="contact_number" class="form-control" placeholder="Contact Number"></div>
+        </div>
 
-      <input type="number" name="height" class="form-control mb-3" placeholder="Height (in cm)" required>
-      <input type="number" name="weight" class="form-control mb-3" placeholder="Weight (in kg)" required>
+        <hr class="my-4">
 
-      <select name="goal" class="form-select mb-3" required>
-        <option value="" disabled selected>Fitness Goal</option>
-        <option value="Lose Weight">Lose Weight</option>
-        <option value="Maintain">Maintain</option>
-        <option value="Gain Muscle">Gain Muscle</option>
-      </select>
+        <div class="row g-3">
+          <div class="col-12">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" name="email" id="email" class="form-control" required>
+          </div>
+          <div class="col-12">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" name="password" id="password" class="form-control" required>
+          </div>
+        </div>
 
-      <input type="email" name="email" class="form-control mb-3" placeholder="Email" required>
-      <input type="password" name="password" class="form-control mb-3" placeholder="Password" required>
-
-      <button type="submit" class="btn btn-primary w-100">Register</button>
-    </form>
+        <button type="submit" class="btn w-100 mt-4">Register</button>
+      </form>
+       <p class="text-center small mt-3">
+        Already have an account? <a href="/login">Log in</a>
+      </p>
+    </div>
   </div>
-</body>
-</html>
+</div>
+
+<script>
+  function toggleRoleFields() {
+    const role = document.getElementById('role-select').value;
+    const studentFields = document.getElementById('student-fields');
+    const messFields = document.getElementById('mess-operator-fields');
+    
+    studentFields.style.display = role === 'student' ? '' : 'none';
+    messFields.style.display = role === 'mess_operator' ? '' : 'none';
+
+    document.querySelectorAll('#student-fields input, #student-fields select').forEach(e => e.required = role === 'student');
+    document.querySelectorAll('#mess-operator-fields input').forEach(e => e.required = role === 'mess_operator');
+  }
+  // Initial call to set fields based on default role
+  toggleRoleFields();
+</script>
+
+<%- include('partials/footer') %>

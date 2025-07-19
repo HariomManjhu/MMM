@@ -1,0 +1,141 @@
+<%- include('partials/header') %>
+
+<div class="container py-5">
+  <h1 class="text-center mb-5">Weekly Analytics</h1>
+
+  <div class="card p-4">
+    <div class="btn-group mb-4" role="group">
+      <button type="button" class="btn btn-outline-primary active" data-metric="calories">Calories</button>
+      <button type="button" class="btn btn-outline-primary" data-metric="protein">Protein</button>
+      <button type="button" class="btn btn-outline-primary" data-metric="carbs">Carbs</button>
+      <button type="button" class="btn btn-outline-primary" data-metric="fat">Fat</button>
+    </div>
+    <div class="chart-container" style="position: relative; height: 400px;">
+      <canvas id="analyticsChart"></canvas>
+    </div>
+  </div>
+
+  <div class="card p-4 mt-4">
+    <h3 class="text-center mb-4">Your 30-Day Consistency</h3>
+    <div class="row text-center">
+      <div class="col-md-3">
+        <h5>On Target with Calories</h5>
+        <p class="fs-4"><%= monthlySummary.calories.good %> <span class="fs-6 text-muted">/ <%= monthlySummary.totalDays %> days</span></p>
+      </div>
+      <div class="col-md-3">
+        <h5>Met Protein Goal</h5>
+        <p class="fs-4"><%= monthlySummary.protein.good %> <span class="fs-6 text-muted">/ <%= monthlySummary.totalDays %> days</span></p>
+      </div>
+      <div class="col-md-3">
+        <h5>Stayed Within Carb Limit</h5>
+        <p class="fs-4"><%= monthlySummary.carbs.good %> <span class="fs-6 text-muted">/ <%= monthlySummary.totalDays %> days</span></p>
+      </div>
+      <div class="col-md-3">
+        <h5>Stayed Within Fat Limit</h5>
+        <p class="fs-4"><%= monthlySummary.fat.good %> <span class="fs-6 text-muted">/ <%= monthlySummary.totalDays %> days</span></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card p-4 mt-4">
+    <h3 class="text-center mb-4">This Week vs. Last Week</h3>
+    <div class="row text-center">
+      <div class="col-md-3">
+        <h5>Calories</h5>
+        <p class="fs-4 <%= weeklyComparison.calories >= 0 ? 'text-danger' : 'text-success' %>">
+          <%= weeklyComparison.calories %>%
+        </p>
+      </div>
+      <div class="col-md-3">
+        <h5>Protein</h5>
+        <p class="fs-4 <%= weeklyComparison.protein >= 0 ? 'text-success' : 'text-danger' %>">
+          <%= weeklyComparison.protein %>%
+        </p>
+      </div>
+      <div class="col-md-3">
+        <h5>Carbs</h5>
+        <p class="fs-4 <%= weeklyComparison.carbs >= 0 ? 'text-danger' : 'text-success' %>">
+          <%= weeklyComparison.carbs %>%
+        </p>
+      </div>
+      <div class="col-md-3">
+        <h5>Fat</h5>
+        <p class="fs-4 <%= weeklyComparison.fat >= 0 ? 'text-danger' : 'text-success' %>">
+          <%= weeklyComparison.fat %>%
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const ctx = document.getElementById('analyticsChart').getContext('2d');
+  const chartData = JSON.parse('<%- chartData %>');
+  let currentChart;
+
+  const goodColor = 'rgba(75, 192, 192, 0.5)';
+  const badColor = 'rgba(255, 99, 132, 0.5)';
+  const targetColor = 'rgba(201, 203, 207, 0.5)';
+
+  function getColor(metric, actual, target) {
+    if (metric === 'calories') {
+      if (chartData.goal === 'cut') return actual <= target ? goodColor : badColor;
+      if (chartData.goal === 'bulk') return actual >= target ? goodColor : badColor;
+      return Math.abs(actual - target) < 100 ? goodColor : badColor;
+    }
+    if (metric === 'protein') return actual >= target ? goodColor : badColor;
+    return actual <= target ? goodColor : badColor; // For carbs and fat
+  }
+
+  function renderChart(metric) {
+    if (currentChart) {
+      currentChart.destroy();
+    }
+    
+    const targetData = Array(chartData.labels.length).fill(chartData.targets[metric]);
+    const backgroundColors = chartData.actuals[metric].map(actual => getColor(metric, actual, chartData.targets[metric]));
+
+    currentChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: chartData.labels,
+        datasets: [
+          {
+            label: 'Target',
+            data: targetData,
+            backgroundColor: targetColor,
+            borderColor: targetColor,
+            borderWidth: 1
+          },
+          {
+            label: 'Actual',
+            data: chartData.actuals[metric],
+            backgroundColor: backgroundColors,
+            borderColor: backgroundColors.map(c => c.replace('0.5', '1')),
+            borderWidth: 1
+          }
+        ]
+      },
+      options: {
+        scales: { y: { beginAtZero: true } },
+        responsive: true,
+        maintainAspectRatio: false
+      }
+    });
+  }
+
+  // Initial render
+  renderChart('calories');
+
+  // Button listeners
+  document.querySelectorAll('.btn-group .btn').forEach(button => {
+    button.addEventListener('click', (e) => {
+      document.querySelector('.btn-group .btn.active').classList.remove('active');
+      e.target.classList.add('active');
+      renderChart(e.target.dataset.metric);
+    });
+  });
+</script>
+
+<%- include('partials/footer') %> 

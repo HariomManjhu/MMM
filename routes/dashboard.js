@@ -89,7 +89,7 @@ router.get('/dashboard', async (req, res) => {
     });
 
   } catch (err) {
-    console.error('❌ Dashboard error:', err);
+    console.error(' Dashboard error:', err);
     res.status(500).send('Server Error');
   }
 });
@@ -118,11 +118,11 @@ router.get('/weeklysummary', async (req, res) => {
 
     res.render('weekly_summary', {
       session: req.session,
-      days: rows   // ✅ using 'days' instead of 'summary'
+      days: rows   //  using 'days' instead of 'summary'
     });
 
   } catch (err) {
-    console.error("❌ Weekly summary error:", err);
+    console.error(" Weekly summary error:", err);
     res.status(500).send("Server error");
   }
 });

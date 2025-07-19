@@ -10,79 +10,72 @@
   <!-- Custom CSS -->
   <link rel="stylesheet" href="/Style.css" />
 </head>
-
 <body class="bg-light text-dark">
   <%- include("partials/header") %>
 
-  <!-- FAQ Section -->
-  <section class="container py-5">
-    <div class="text-center mb-5">
-      <h2 class="fw-bold display-6 custom-yellow">Frequently Asked Questions</h2>
-      <p class="text-muted">Answers to common queries about tracking, goals, and your data.</p>
+<div class="container py-5">
+  <div class="text-center mb-5">
+    <h1 class="text-center mb-5">Frequently Asked Questions</h1>
+    <p class="lead text-muted">Answers to common queries about tracking, goals, and your data.</p>
+  </div>
+
+  <div class="accordion" id="faqAccordion">
+    <!-- Question 1 -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingOne">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          How do I log my meals?
+        </button>
+      </h2>
+      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          Go to the <strong>Log Meal</strong> page from the navigation bar. There, you can select from the available menu items for your mess and specify the quantity to log your intake.
+        </div>
+      </div>
     </div>
-
-    <div class="accordion shadow-sm rounded-4" id="faqAccordion">
-
-      <!-- Q1 -->
-      <div class="accordion-item mb-3 border-0 shadow-sm rounded-3">
-        <h2 class="accordion-header" id="faq1">
-          <button class="accordion-button rounded-top-3" type="button" data-bs-toggle="collapse" data-bs-target="#answer1" aria-expanded="true">
-            How do I log my meals?
-          </button>
-        </h2>
-        <div id="answer1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
-          <div class="accordion-body">
-            You can go to the <strong>"Log Meal"</strong> tab and enter your meal details including portion size. It will update your daily stats automatically.
-          </div>
+    <!-- Question 2 -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingTwo">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          How is my BMI calculated?
+        </button>
+      </h2>
+      <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          BMI is calculated based on the height and weight you provide in your profile. The formula is weight (kg) / [height (m)]².
         </div>
       </div>
-
-      <!-- Q2 -->
-      <div class="accordion-item mb-3 border-0 shadow-sm rounded-3">
-        <h2 class="accordion-header" id="faq2">
-          <button class="accordion-button collapsed rounded-top-3" type="button" data-bs-toggle="collapse" data-bs-target="#answer2">
-            How is my BMI calculated?
-          </button>
-        </h2>
-        <div id="answer2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-          <div class="accordion-body">
-            BMI is calculated using your weight and height. The formula used is: <code>weight (kg) / [height (m)]²</code>.
-          </div>
-        </div>
-      </div>
-
-      <!-- Q3 -->
-      <div class="accordion-item mb-3 border-0 shadow-sm rounded-3">
-        <h2 class="accordion-header" id="faq3">
-          <button class="accordion-button collapsed rounded-top-3" type="button" data-bs-toggle="collapse" data-bs-target="#answer3">
-            Can I change my goal (e.g., from weight loss to muscle gain)?
-          </button>
-        </h2>
-        <div id="answer3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-          <div class="accordion-body">
-            Yes, go to your <strong>Physical Info</strong> section and update your goal. The suggestions will adjust accordingly.
-          </div>
-        </div>
-      </div>
-
-      <!-- Q4 -->
-      <div class="accordion-item mb-3 border-0 shadow-sm rounded-3">
-        <h2 class="accordion-header" id="faq4">
-          <button class="accordion-button collapsed rounded-top-3" type="button" data-bs-toggle="collapse" data-bs-target="#answer4">
-            Where is my data stored?
-          </button>
-        </h2>
-        <div id="answer4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-          <div class="accordion-body">
-            All your data is stored securely in your local system or in the connected database under your account.
-          </div>
-        </div>
-      </div>
-
     </div>
-  </section>
+    <!-- Question 3 -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingThree">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          Can I change my fitness goal?
+        </button>
+      </h2>
+      <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          Yes, you can change your goal at any time. Go to the <strong>Dashboard</strong> and click on the "Change Goal" button to select a new goal, such as weight loss, maintenance, or muscle gain.
+        </div>
+      </div>
+    </div>
+    <!-- Question 4 -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingFour">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+          How is my leaderboard score calculated?
+        </button>
+      </h2>
+      <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          Your score is a measure of your consistency over the last 30 days. You earn points for each day you meet your personalized targets for calories, protein, carbs, and fat. The more consistent you are, the higher your score will be!
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-  <%- include("partials/footer") %>
+<%- include("partials/footer") %>
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
