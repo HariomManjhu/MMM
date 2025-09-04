@@ -169,3 +169,20 @@ Contributions are welcome! If you have ideas for improvements or find any bugs, 
 3.  **Commit** your changes (`git commit -m 'Add some NewFeature'`).
 4.  **Push** to the branch (`git push origin feature/NewFeature`).
 5.  Open a **Pull Request**.
+6.  ##  Screenshots
+
+### Homepage
+![Homepage](./screenshots/homepage.png)
+
+### Dashboard
+![Dashboard](./screenshots/dashboard.png)
+
+### Weekly Analysis
+![Weekly Analysis](./screenshots/weekly_analysis.png)
+
+### Weight Tracking
+![Weight](./screenshots/weight.png)
+
+### Weight History
+![Weight History](./screenshots/weight_history.png)
+
