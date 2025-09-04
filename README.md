@@ -171,18 +171,45 @@ Contributions are welcome! If you have ideas for improvements or find any bugs, 
 5.  Open a **Pull Request**.
 6.  ##  Screenshots
 
-### Homepage
-![Homepage](./screenshots/homepage.png)
+## 📸 Screenshots
 
-### Dashboard
-![Dashboard](./screenshots/dashboard.png)
+Here's a glimpse of the app's features and interface.
 
-### Weekly Analysis
+---
+
+### Home & Dashboard (Light & Dark Mode)
+![Home](./screenshots/home.png)
+![Home 1](./screenshots/home1.png)
+![Home 2](./screenshots/home2.png)
+![Home 3](./screenshots/home3.png)
+![Home 4](./screenshots/home4.png)
+![Dark Mode](./screenshots/dark.png)
+![Dark Mode 1](./screenshots/dark1.png)
+![Today View](./screenshots/today.png)
+
+---
+
+### Logging Meals & Exercise
+![Log Meal](./screenshots/log_meal.png)
+![Logging Meal](./screenshots/logging%20meal.png)
+![Log Exercise](./screenshots/log_exercise.png)
+![Meal History](./screenshots/meal_history.png)
+
+---
+
+### Analytics & Reports
 ![Weekly Analysis](./screenshots/weekly_analysis.png)
+![Weekly Analysis 1](./screenshots/weekly_analysis1.png)
+![Weekly Analytics](./screenshots/weekly_analytics.png)
+![Analytics](./screenshots/analytics3.png)
+![Report](./screenshots/report.png)
+![Score](./screenshots/score.png)
 
-### Weight Tracking
+---
+
+### User Profile & Progress Tracking
+![Profile](./screenshots/profile.png)
 ![Weight](./screenshots/weight.png)
-
-### Weight History
 ![Weight History](./screenshots/weight_history.png)
-
+![Exercise Page](./screenshots/exercise.png)
+![Leaderboard](./screenshots/leaderboard.png)
