@@ -171,7 +171,7 @@ Contributions are welcome! If you have ideas for improvements or find any bugs, 
 5.  Open a **Pull Request**.
 6.  ##  Screenshots
 
-## 📸 Screenshots
+##  Screenshots
 
 Here's a glimpse of the app's features and interface.
 
